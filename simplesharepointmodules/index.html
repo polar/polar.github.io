@@ -77,7 +77,34 @@
     <div class="container-fluid">
 		<div class="row-fluid">
         	<div><h1>SimpleSharepoint Modules</h1></div>
-        </div>    
+        </div>
+		<div class="row-fluid">
+
+			<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
+				<div>
+					The following Powershell modules facilitate the provisioning of new sites on SimpleSharepoint's
+					clients' tenants. The functionality is provided using two different modules,
+					<a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> and
+					<a href="SSP.PnPLibrary/index.html">SSP.PnPLibrary</a>.
+					The main functionality to be used is in the
+					<a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a> function provided by
+					the <a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> module.
+					The <a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a> has two functions.
+					<dl>
+						<dt>Build a base Porteo site</dt>
+						<dd>This function builds a base Porteo site with standard SimpleSharepoint lists. See the
+						function for details on which lists are created. Then you would add content to this site
+						to serve as provisioning new sites.</dd>
+						<dt>Copy and Provision a new Porteo Site from a source site.</dt>
+						<dd>This function will create a new site on a target tenant and copy the source site lists,
+						pages, page contents, and site assets from the base site. Typically what you would do is
+						create a base site using the above function first. Then, you would add content to that site,
+						and once that is done and can be used to provision a new clients site, then you use this
+						functionality to provision the newly created site.</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
 		<div class="row-fluid">
 
 			<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
