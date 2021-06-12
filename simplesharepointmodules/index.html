@@ -82,6 +82,7 @@
 
 			<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
 				<div>
+					<p>
 					The following Powershell modules facilitate the provisioning of new sites on SimpleSharepoint's
 					clients' tenants. The functionality is provided using two different modules,
 					<a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> and
@@ -90,6 +91,7 @@
 					<a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a> function provided by
 					the <a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> module.
 					The <a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a> has two functions.
+					</p>
 					<dl>
 						<dt>Build a base Porteo site</dt>
 						<dd>This function builds a base Porteo site with standard SimpleSharepoint lists. See the
@@ -102,6 +104,25 @@
 						and once that is done and can be used to provision a new clients site, then you use this
 						functionality to provision the newly created site.</dd>
 					</dl>
+					<p>As a preliminary example, the following Powershell commands will create a base PorteoSite and
+					provision a new one from it.</p>
+					<pre class="brush: ps">
+
+						$creds = Get-Credential
+						$siteUrl = Build-PorteoSite -TenantUrl "https://mysite-admin.sharepoint.com" -Credentials $creds `
+									 -SiteName "SiteTemplate" -Title "The Site Template" -Type "TeamSite" `
+									 -Owner "name@site.onmicrosoft.com"
+						$srcConn = Connect-PnPOnline -Url $siteUrl -Credentials $creds
+						$dstCreds = Get-Credential
+						$newSiteUrl = Build-PorteoSite -TenantUrl "https://client-admin.sharepoint.com" -Credentials $dstCreds `
+									 -SiteName "MySite" -Title "My Great Site" -Type "TeamSite" `
+									 -Owner "admin@company.com" -SrcConnection $srcConn
+
+					</pre>
+					<p>
+						The documentation for the modules and their functions may be accessed from the following
+						links.
+					</p>
 				</div>
 			</div>
 		</div>
@@ -110,24 +131,25 @@
 			<div class="col-lg-9 col-md-8 col-sm-7 col-xs-12">
 				<div>
 					<div class="page-header">
-						<h2> <a href="SSP.PnPLibrary/index.html">SSP.PnPLibrary</a> </h2>
-					</div>
-					<div>
-						<p>This library contains somewhat primitive functions to provision sites and other
-							things on a SharePoint tenant. The functions in this module are
-						used by the <a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> to create
-						common configured sites for a SimpleSharepoint tenant.</p>
-					</div>
-				</div>
-				<div>
-					<div class="page-header">
 						<h2> <a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> </h2>
 					</div>
 					<div>
 						<p>This library contains functions to provision common SimpleSharepoint sites. The most
-						notable function is be <a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a></p>
-						<h3>Build-PorteoSite</h3>
-						<p>This function builds either an initial Porteo Site, which has the </p>
+							notable function is be <a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a></p>
+					</div>
+				</div>
+				<div>
+					<div class="page-header">
+						<h2> <a href="SSP.PnPLibrary/index.html">SSP.PnPLibrary</a> </h2>
+					</div>
+					<div>
+						<p>This library contains more primitive functions to provision sites and other
+							things on a Sharepoint tenant. The functions in this module are
+						used by the <a href="SSP.PorteoLibrary/index.html">SSP.PorteoLibrary</a> to create
+						common configured sites for a SimpleSharepoint tenant.</p>
+						<p>You may want to use these functions if you want to do more than the
+							<a href="SSP.PorteoLibrary/index.html#Build-PorteoSite">Build-PorteoSite</a> function
+						provides</p>
 					</div>
 				</div>
 			</div>
