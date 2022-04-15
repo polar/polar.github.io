@@ -108,6 +108,8 @@
 					provision a new one from it.</p>
 					<pre class="brush: ps">
 
+                        Install-Module SSP.PorteoLibrary -AllowPrerelease -Force
+
 						$creds = Get-Credential
 						$siteUrl = Build-PorteoSite -TenantUrl "https://mysite-admin.sharepoint.com" -Credentials $creds `
 									 -SiteName "SiteTemplate" -Title "The Site Template" -Type "TeamSite" `
@@ -165,6 +167,9 @@
 								replicating it using the functions <a href="SSP.PorteoLibrary/index.html#Build-PorteoSiteListFromTemplate">Build-PorteoSiteListFromTemplate</a>
 							</p>
 							<pre class="brush: ps">
+
+Install-Module SSP.PorteoLibrary -AllowPrerelease -Force
+
 #
 # Emanuel Group ArrayList of sites you want to create using url and title pairs.
 #
