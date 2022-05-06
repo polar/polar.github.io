@@ -206,6 +206,14 @@ $srcConn = Connect-PnPOnline -Url $srcSite  -Credentials $srcCreds -ReturnConnec
 # Note, Windows may need another place for this file, use "C:\somwhere\template.pnp". Make sure it ends in ".pnp"
 $template = Get-SSPSiteTemplate -FileName "/tmp/template.pnp" -SrcConnection $srcConn
 
+# Workarounds for broken PnP-Powershell library. 1.10
+#    Transfer of Theme does not work.
+#    Documents do not transfer.
+#    Apps do not automatically get installed.
+
+Add-SSPFilesToTemplate -Path $templateFile -List "Documents"
+$colorPaletteUrl = Add-SSPThemeToTemplate -Path $templateFile
+
 ## Now create each site listed above in the tennant from the template.
 ## Note: this admin site may be completely different, different credentials, etc.
 $admSite = "https://theemanuelgroups0-admin.sharepoint.com"
@@ -216,7 +224,7 @@ $SecurePassword = $PlainPassword | ConvertTo-SecureString -AsPlainText -Force
 $dstCreds = New-Object System.Management.Automation.PSCredential ($owner, $SecurePassword)
 
 Build-PorteoSiteListFromTemplate -Template $template -SiteList $sites -TenantUrl $admSite -Credentials $dstCreds `
-             -Owner $owner -Type "TeamSite"
+             -Owner $owner -Type "TeamSiteWithoutMicrosoft365Group" -ColorPaletteUrl $colorPaletteUrl -AddInstalledApps $true
 							</pre>
 						</div>
 	</div>
