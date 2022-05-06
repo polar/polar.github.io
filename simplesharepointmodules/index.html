@@ -172,6 +172,7 @@ Install-Module SSP.PorteoLibrary -AllowPrerelease -Force
 
 #
 # Emanuel Group ArrayList of sites you want to create using url and title pairs.
+# Note: You cannot overlap (subsites) URLS for TeamSiteWithoutMicrosoft365Group.
 #
 $sites = @(
     @("tls", "Top Level Site"),
@@ -182,15 +183,6 @@ $sites = @(
     @("phenix-salon", "Phenix Salon"),
     @("manna-foundation", "Manna Foundation"),
     @("resource-center", "Resource Center"),
-
-    @("emanuel-health", "Emanuel Health"),
-    @("emanuel-health/beaver-dam-nursing-and-rehab", "Beaver Dam Nursing and Rehab"),
-    @("emanuel-health/the-cottages-of-clayton", "The Cottages of Clayton"),
-    @("emanuel-health/elizabeth-care-center", "Elizabeth Care Center"),
-    @("emanuel-health/harbor-healthcare-of-ironton", "Harbor Healthcare of Ironton"),
-    @("emanuel-health/madison-park", "Madison Park"),
-    @("emanuel-health/mountain-manor-of-paintsville", "Mountain Manor of Paintsville"),
-    @("emanuel-health/emanuel-pointe", "Emanuel Pointe")
 )
 
 ### Get/Create the Source Template File
@@ -212,9 +204,10 @@ $template = Get-SSPSiteTemplate -FileName "/tmp/template.pnp" -SrcConnection $sr
 #    Apps do not automatically get installed.
 
 Add-SSPFilesToTemplate -Path $templateFile -List "Documents"
+# NOTE: This call does not work for TeamSite
 $colorPaletteUrl = Add-SSPThemeToTemplate -Path $templateFile
 
-## Now create each site listed above in the tennant from the template.
+## Now create each site listed above in the tenant from the template.
 ## Note: this admin site may be completely different, different credentials, etc.
 $admSite = "https://theemanuelgroups0-admin.sharepoint.com"
 $owner = "edg@simplesharepoint.com"
