@@ -201,9 +201,14 @@ $template = Get-SSPSiteTemplate -FileName "/tmp/template.pnp" -SrcConnection $sr
 # Workarounds for broken PnP-Powershell library. 1.10
 #    Transfer of Theme does not work.
 #    Documents do not transfer.
+#    Extra Logo files are not transferred from Site Assets.
 #    Apps do not automatically get installed.
 
-Add-SSPFilesToTemplate -Path $templateFile -List "Documents"
+Add-SSPFilesToTemplate -Path $template -List "Documents"
+# This call adding the Site Assets list adds the extra files needed for the Logo.
+Add-SSPFilesToTemplate -Path $template -List "Site Assets"
+# Adding Site Pages is not needed as they are correctly handled.
+
 # NOTE: This call does not work for TeamSite
 $colorPaletteUrl = Add-SSPThemeToTemplate -Path $templateFile
 
