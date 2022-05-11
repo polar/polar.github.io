@@ -204,10 +204,13 @@ $template = Get-SSPSiteTemplate -FileName "/tmp/template.pnp" -SrcConnection $sr
 #    Extra Logo files are not transferred from Site Assets.
 #    Apps do not automatically get installed.
 
-Add-SSPFilesToTemplate -Path $template -List "Documents"
+Add-SSPFilesToTemplate -Path $template -List "Documents" -Connection $srcConn
 # This call adding the "Site Assets" list adds the extra files needed for the Logo.
-Add-SSPFilesToTemplate -Path $template -List "Site Assets"
+Add-SSPFilesToTemplate -Path $template -List "Site Assets" -Connection $srcConn
 # Adding "Site Pages" is not needed as they are correctly handled.
+
+# Add the latest ColorPalette from the Source to the Template File
+$colorPaletteUrl = Add-SSPThemeToTemplate -Path $template -Connection $srcConn
 
 ## Now create each site listed above in the tenant from the template.
 ## Note: this admin site may be completely different, different credentials, etc.
@@ -219,7 +222,8 @@ $SecurePassword = $PlainPassword | ConvertTo-SecureString -AsPlainText -Force
 $dstCreds = New-Object System.Management.Automation.PSCredential ($owner, $SecurePassword)
 
 Build-PorteoSiteListFromTemplate -Template $template -SiteList $sites -TenantUrl $admSite -Credentials $dstCreds `
-             -Owner $owner -Type "TeamSiteWithoutMicrosoft365Group" -AddInstalledApps $true
+             -Owner $owner -Type "TeamSiteWithoutMicrosoft365Group" -AddInstalledApps $true `
+			 -ColorPaletteUrl $colorPaletteUrl
 							</pre>
 						</div>
 	</div>
